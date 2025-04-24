@@ -22,6 +22,8 @@ API_PREFIX = env.str("API_PREFIX", "api/")
 
 HOST = env.str("HOST", "http://localhost/")
 
+AUTH_USER_MODEL = 'users.User'
+
 # Application definition
 
 # Django-specific apps
@@ -39,6 +41,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "corsheaders",
     "rest_framework",
+    "rest_framework_simplejwt",
     "drf_spectacular",
     "djoser",
     "django_filters",
