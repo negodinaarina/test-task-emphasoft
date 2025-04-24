@@ -1,0 +1,35 @@
+services:
+    postgres:
+        image: postgres
+        container_name: postgres
+        env_file:
+            - ./django_core/.env
+
+        expose:
+            - 5432
+
+        volumes:
+            - ./dbs/postgres-data:/var/lib/postgresql/data
+
+    backend:
+        container_name: django_core
+        build: ./django_core
+        env_file:
+            - ./django_core/.env
+
+        command: bash -c "
+            python3 manage.py makemigrations &&
+            python3 manage.py migrate &&
+            python manage.py collectstatic --noinput &&
+            gunicorn -w 3 django_core.wsgi:application --bind 0.0.0.0:8000 --reload"
+
+        restart: always
+
+        expose:
+            - 8000
+
+        volumes:
+            - ./django_core:/var/www/apps/django_core
+
+        depends_on:
+            - postgres
