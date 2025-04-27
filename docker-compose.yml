@@ -31,5 +31,8 @@ services:
         volumes:
             - ./django_core:/var/www/apps/django_core
 
+        ports:
+            - "8000:8000"
+
         depends_on:
             - postgres
