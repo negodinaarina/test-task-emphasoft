@@ -1,11 +1,5 @@
 from django.urls import path
-from users.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    UserCreateView,
-    UserListView,
-    UserRetrieveView,
-)
+from users.views import TokenObtainPairView, TokenRefreshView, UserCreateView, UserListView, UserRetrieveView
 
 app_name = "users"
 

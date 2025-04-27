@@ -11,26 +11,26 @@ class User(AbstractBaseUser, PermissionsMixin):
         ADMIN = "ADMIN"
 
     last_name = models.CharField(
-        verbose_name="Фамилия", max_length=NAME_MAX_LENGTH, blank=True
+        verbose_name="Last name", max_length=NAME_MAX_LENGTH, blank=True
     )
     first_name = models.CharField(
-        verbose_name="Имя", max_length=NAME_MAX_LENGTH, blank=True
+        verbose_name="First name", max_length=NAME_MAX_LENGTH, blank=True
     )
     middle_name = models.CharField(
-        verbose_name="Отчество", max_length=NAME_MAX_LENGTH, null=True, blank=True
+        verbose_name="Middle name", max_length=NAME_MAX_LENGTH, null=True, blank=True
     )
     email = models.EmailField(
-        verbose_name="Электронная почта",
+        verbose_name="email address",
         unique=True,
         error_messages={
-            "unique": "Пользователь с таким адресом электронной почты уже существует.",
+            "unique": "User with given email already exists",
         },
     )
     role = models.CharField(
-        verbose_name="Роль", choices=Role.choices, default=Role.CUSTOMER
+        verbose_name="Role", choices=Role.choices, default=Role.CUSTOMER
     )
     date_joined = models.DateTimeField(
-        verbose_name="Дата регистрации", default=timezone.now
+        verbose_name="Registration date", default=timezone.now
     )
 
     objects = UserManager()
@@ -39,8 +39,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
 
     class Meta:
-        verbose_name = "Пользователь"
-        verbose_name_plural = "Пользователи"
+        verbose_name = "User"
+        verbose_name_plural = "Users"
 
     @property
     def is_admin(self):

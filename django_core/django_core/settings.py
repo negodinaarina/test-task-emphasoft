@@ -204,10 +204,10 @@ CONSTANCE_BACKEND = "constance.backends.redisd.CachingRedisBackend"
 CONSTANCE_REDIS_CACHE_TIMEOUT = 60 * 5
 
 CONSTANCE_CONFIG = {
-    "EXAMPLE_SETTING": ("Пример настройки", "Заголовок примера настройки", str)
+    "EXAMPLE_SETTING": ("Settings example", "Settings example heading", str)
 }
 
-CONSTANCE_CONFIG_FIELDSETS = {"Пример группы настроек": ("EXAMPLE_SETTING",)}
+CONSTANCE_CONFIG_FIELDSETS = {"Example of group settings": ("EXAMPLE_SETTING",)}
 
 if env.bool("LOG_DB_QUERIES", False):
     LOGGING = {
