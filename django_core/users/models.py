@@ -26,7 +26,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             "unique": "Пользователь с таким адресом электронной почты уже существует.",
         },
     )
-    role = models.CharField(verbose_name="Роль", choices=Role.choices, default=Role.CUSTOMER)
+    role = models.CharField(
+        verbose_name="Роль", choices=Role.choices, default=Role.CUSTOMER
+    )
     date_joined = models.DateTimeField(
         verbose_name="Дата регистрации", default=timezone.now
     )
@@ -46,4 +48,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_staff(self):
+        return self.role == self.Role.ADMIN
+
+    @property
+    def is_superuser(self):
         return self.role == self.Role.ADMIN
