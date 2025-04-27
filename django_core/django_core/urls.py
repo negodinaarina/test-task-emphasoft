@@ -1,6 +1,6 @@
-from django.contrib import admin
 from django.conf import settings
-from django.urls import path, include
+from django.contrib import admin
+from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 api_urlpatterns = [
@@ -11,6 +11,10 @@ api_urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
+    path(
+        "rooms/",
+        include("rooms.urls"),
+    ),
 ]
 
 internal_urlpatterns = [
@@ -19,8 +23,5 @@ internal_urlpatterns = [
 ]
 
 urlpatterns = [
-    path(
-        settings.BASE_URL,
-        include(internal_urlpatterns)
-    ),
+    path(settings.BASE_URL, include(internal_urlpatterns)),
 ]

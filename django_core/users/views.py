@@ -15,7 +15,7 @@ from users.serializers import UserCreateSerializer, UserRetrieveSerializer
 )
 class UserCreateView(generics.CreateAPIView):
     """
-    Регистрация нового пользователя (CUSTOMER по умолчанию)
+    Create new user
     """
 
     queryset = User.objects.all()
@@ -29,7 +29,7 @@ class UserCreateView(generics.CreateAPIView):
 )
 class UserListView(generics.ListAPIView):
     """
-    Просмотр всех пользователей (только для ADMIN)
+    Get all users
     """
 
     queryset = User.objects.all()
@@ -39,7 +39,7 @@ class UserListView(generics.ListAPIView):
 
 class UserRetrieveView(generics.RetrieveAPIView):
     """
-    Получить информацию о текущем пользователе
+    Get information about current user
     """
 
     permission_classes = [IsAuthenticated]
