@@ -20,17 +20,13 @@ class CustomUserAdmin(UserAdmin):
         (
             "Permissions",
             {
-                "fields": (
-                    "role",
-                ),
+                "fields": ("role",),
             },
         ),
         (
             "Important dates",
             {
-                "fields": (
-                    "date_joined",
-                ),
+                "fields": ("date_joined",),
             },
         ),
     )
@@ -55,9 +51,7 @@ class CustomUserAdmin(UserAdmin):
         "middle_name",
         "date_joined",
     )
-    list_filter = (
-        "role",
-    )
+    list_filter = ("role",)
     ordering = (
         "email",
         "date_joined",
