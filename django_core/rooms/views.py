@@ -178,6 +178,7 @@ class ReservationsGetAPIView(APIView):
 
 class ReservationsDeleteAPIView(APIView):
     permission_classes = [IsAuthenticated]
+    serializer_class = None
 
     @method_decorator(
         name="delete",
