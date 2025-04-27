@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import environ
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
@@ -22,7 +23,7 @@ API_PREFIX = env.str("API_PREFIX", "api/")
 
 HOST = env.str("HOST", "http://localhost/")
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
 # Application definition
 
@@ -52,6 +53,7 @@ THIRD_PARTY_APPS = [
 # Internal apps
 INTERNAL_APPS = [
     "users",
+    "rooms",
 ]
 
 INSTALLED_APPS = [*DJANGO_APPS, *THIRD_PARTY_APPS, *INTERNAL_APPS]
@@ -130,19 +132,9 @@ CSRF_TRUSTED_ORIGINS = [
 # CORS headers
 # https://pypi.org/project/django-cors-headers/
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://127.0.0.1:8080"
-]
+CORS_ALLOWED_ORIGINS = ["http://localhost:8080", "http://127.0.0.1:8080"]
 
-CORS_ALLOW_METHODS = [
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT"
-]
+CORS_ALLOW_METHODS = ["DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT"]
 
 # DRF settings
 # https://www.django-rest-framework.org/
@@ -212,18 +204,10 @@ CONSTANCE_BACKEND = "constance.backends.redisd.CachingRedisBackend"
 CONSTANCE_REDIS_CACHE_TIMEOUT = 60 * 5
 
 CONSTANCE_CONFIG = {
-    "EXAMPLE_SETTING": (
-        "Пример настройки",
-        "Заголовок примера настройки",
-        str
-    )
+    "EXAMPLE_SETTING": ("Пример настройки", "Заголовок примера настройки", str)
 }
 
-CONSTANCE_CONFIG_FIELDSETS = {
-    "Пример группы настроек": (
-        "EXAMPLE_SETTING",
-    )
-}
+CONSTANCE_CONFIG_FIELDSETS = {"Пример группы настроек": ("EXAMPLE_SETTING",)}
 
 if env.bool("LOG_DB_QUERIES", False):
     LOGGING = {
