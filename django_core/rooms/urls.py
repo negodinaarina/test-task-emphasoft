@@ -1,16 +1,8 @@
-from django.urls import path
-from rooms.views import AvailableRoomsAPIView, ReservationsDeleteAPIView, ReservationsGetAPIView
+from rest_framework.routers import DefaultRouter
+from rooms.views import RoomViewSet, ReservationViewSet
 
-urlpatterns = [
-    path("", AvailableRoomsAPIView.as_view(), name="get rooms for reservation"),
-    path(
-        "reservations/",
-        ReservationsGetAPIView.as_view(),
-        name="get and create reservations",
-    ),
-    path(
-        "reservations/<int:pk>",
-        ReservationsDeleteAPIView.as_view(),
-        name="delete reservation",
-    ),
-]
+router = DefaultRouter()
+router.register(r'rooms/available', RoomViewSet, basename='available-rooms')
+router.register(r'reservations', ReservationViewSet, basename='reservations')
+
+urlpatterns = router.urls

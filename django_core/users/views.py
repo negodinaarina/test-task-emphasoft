@@ -1,49 +1,56 @@
-from django.utils.decorators import method_decorator
-from drf_spectacular.utils import extend_schema
-from rest_framework import generics
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from users.models import User
 from users.serializers import UserCreateSerializer, UserRetrieveSerializer
 
 
-@method_decorator(
-    name="post",
-    decorator=extend_schema(
-        request=UserCreateSerializer, responses=UserRetrieveSerializer
+@extend_schema_view(
+    create=extend_schema(
+        request=UserCreateSerializer,
+        responses=UserRetrieveSerializer,
+    ),
+    list=extend_schema(
+        responses=UserRetrieveSerializer,
     ),
 )
-class UserCreateView(generics.CreateAPIView):
+class UserViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet,
+):
     """
-    Create new user
-    """
-
-    queryset = User.objects.all()
-    serializer_class = UserCreateSerializer
-    permission_classes = [AllowAny]
-
-
-@method_decorator(
-    name="get",
-    decorator=extend_schema(responses=UserRetrieveSerializer),
-)
-class UserListView(generics.ListAPIView):
-    """
-    Get all users
+    - User creation (open to all)
+    - Listing all users (admin only)
     """
 
     queryset = User.objects.all()
-    serializer_class = UserRetrieveSerializer
-    permission_classes = [IsAdminUser]
+
+    def get_permissions(self):
+        if self.action == "create":
+            return [AllowAny()]
+        elif self.action == "list":
+            return [IsAdminUser()]
+        return super().get_permissions()
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return UserCreateSerializer
+        return UserRetrieveSerializer
 
 
-class UserRetrieveView(generics.RetrieveAPIView):
+class CurrentUserViewSet(viewsets.ViewSet):
     """
     Get information about current user
     """
 
     permission_classes = [IsAuthenticated]
-    serializer_class = UserRetrieveSerializer
 
-    def get_object(self):
-        return self.request.user
+    @extend_schema(
+        responses=UserRetrieveSerializer,
+    )
+    def list(self, request):
+        serializer = UserRetrieveSerializer(request.user)
+        return Response(serializer.data)
