@@ -25,7 +25,10 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("start_date", models.DateTimeField(verbose_name="Дата заезда")),
+                (
+                    "start_date",
+                    models.DateTimeField(verbose_name="Дата заезда"),
+                ),
                 ("end_date", models.DateTimeField(verbose_name="Дата выезда")),
                 (
                     "room",

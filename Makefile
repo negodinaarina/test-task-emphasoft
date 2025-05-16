@@ -17,6 +17,10 @@ lint:
 	black .
 	isort .
 
+check formatting:
+	cd django_core
+	flake8 .
+
 superuser:
 	docker exec -ti django_core python manage.py createsuperuser
 

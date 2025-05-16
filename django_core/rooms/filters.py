@@ -9,8 +9,12 @@ class RoomFilter(django_filters.FilterSet):
     max_price = django_filters.NumberFilter(
         field_name="price_per_day", lookup_expr="lte"
     )
-    min_capacity = django_filters.NumberFilter(field_name="capacity", lookup_expr="gte")
-    max_capacity = django_filters.NumberFilter(field_name="capacity", lookup_expr="lte")
+    min_capacity = django_filters.NumberFilter(
+        field_name="capacity", lookup_expr="gte"
+    )
+    max_capacity = django_filters.NumberFilter(
+        field_name="capacity", lookup_expr="lte"
+    )
 
     class Meta:
         model = Room

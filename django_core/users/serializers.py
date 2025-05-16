@@ -7,7 +7,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["email", "first_name", "last_name", "middle_name", "password", "role"]
+        fields = [
+            "email",
+            "first_name",
+            "last_name",
+            "middle_name",
+            "password",
+            "role",
+        ]
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -16,4 +23,11 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "email", "first_name", "last_name", "role", "date_joined"]
+        fields = [
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "role",
+            "date_joined",
+        ]

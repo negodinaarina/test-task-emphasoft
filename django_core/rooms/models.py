@@ -3,7 +3,9 @@ from rooms.constants import NAME_MAX_LENGTH
 
 
 class Room(models.Model):
-    name = models.CharField(max_length=NAME_MAX_LENGTH, verbose_name="Room name")
+    name = models.CharField(
+        max_length=NAME_MAX_LENGTH, verbose_name="Room name"
+    )
     price_per_day = models.DecimalField(
         max_digits=8, decimal_places=2, verbose_name="Price per day"
     )

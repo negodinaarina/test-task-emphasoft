@@ -17,7 +17,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name="First name", max_length=NAME_MAX_LENGTH, blank=True
     )
     middle_name = models.CharField(
-        verbose_name="Middle name", max_length=NAME_MAX_LENGTH, null=True, blank=True
+        verbose_name="Middle name",
+        max_length=NAME_MAX_LENGTH,
+        null=True,
+        blank=True,
     )
     email = models.EmailField(
         verbose_name="email address",

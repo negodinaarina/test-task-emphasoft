@@ -24,17 +24,23 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(max_length=50, verbose_name="Название комнаты"),
+                    models.CharField(
+                        max_length=50, verbose_name="Название комнаты"
+                    ),
                 ),
                 (
                     "price_per_day",
                     models.DecimalField(
-                        decimal_places=2, max_digits=8, verbose_name="Цена за сутки"
+                        decimal_places=2,
+                        max_digits=8,
+                        verbose_name="Цена за сутки",
                     ),
                 ),
                 (
                     "capacity",
-                    models.PositiveSmallIntegerField(verbose_name="Количество мест"),
+                    models.PositiveSmallIntegerField(
+                        verbose_name="Количество мест"
+                    ),
                 ),
             ],
             options={

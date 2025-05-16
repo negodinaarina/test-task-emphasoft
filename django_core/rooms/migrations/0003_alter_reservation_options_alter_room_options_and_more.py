@@ -55,7 +55,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="room",
             name="capacity",
-            field=models.PositiveSmallIntegerField(verbose_name="Guest capacity"),
+            field=models.PositiveSmallIntegerField(
+                verbose_name="Guest capacity"
+            ),
         ),
         migrations.AlterField(
             model_name="room",

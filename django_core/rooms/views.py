@@ -3,13 +3,21 @@ from datetime import datetime
 from django.db.models import Q
 from django.utils.dateparse import parse_datetime
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+    extend_schema_view,
+)
 from rest_framework import mixins, serializers, status, viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rooms.filters import RoomFilter
 from rooms.models import Reservation, Room
-from rooms.serializers import ReservationCreateSerializer, ReservationRetrieveSerializer, RoomRetrieveSerializer
+from rooms.serializers import (
+    ReservationCreateSerializer,
+    ReservationRetrieveSerializer,
+    RoomRetrieveSerializer,
+)
 
 
 def make_room_filters(params):
@@ -54,7 +62,9 @@ class RoomViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     filterset_class = RoomFilter
 
     def get_queryset(self):
-        start_date = parse_datetime(self.request.query_params.get("start_date"))
+        start_date = parse_datetime(
+            self.request.query_params.get("start_date")
+        )
         end_date = parse_datetime(self.request.query_params.get("end_date"))
 
         if not start_date or not end_date or start_date >= end_date:
@@ -70,7 +80,8 @@ class RoomViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 @extend_schema_view(
     list=extend_schema(
         tags=["Reservations"],
-        description="Get reservations (for authenticated user - user's reservations, for admin - all reservations)",
+        description="Get reservations (for authenticated user - "
+        "user's reservations, for admin - all reservations)",
         responses=ReservationRetrieveSerializer(many=True),
     ),
     create=extend_schema(
@@ -109,7 +120,9 @@ class ReservationViewSet(
         room = serializer.validated_data["room"]
 
         if start_date >= end_date:
-            raise serializers.ValidationError("Start date must be before end date.")
+            raise serializers.ValidationError(
+                "Start date must be before end date."
+            )
 
         overlapping = Reservation.objects.filter(
             room=room,
@@ -133,6 +146,9 @@ class ReservationViewSet(
                 status=status.HTTP_204_NO_CONTENT,
             )
         return Response(
-            {"error": "You do not have permission to delete this reservation."},
+            {
+                "error": "You do not have permission "
+                "to delete this reservation."
+            },
             status=status.HTTP_403_FORBIDDEN,
         )
